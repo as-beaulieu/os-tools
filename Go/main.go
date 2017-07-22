@@ -37,8 +37,10 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
+	"os/user"
 	"regexp"
 	"strings"
 	"time"
@@ -47,6 +49,8 @@ import (
 type Ping struct {
 	average time.Duration
 }
+
+var path = "test.txt"
 
 func main() {
 	cmd := exec.Command("ping", "8.8.8.8")
@@ -116,4 +120,49 @@ func writeTestFile(outs []byte) {
 	if err != nil {
 		fmt.Println("Cannot write to logfile: ", err)
 	}
+
+	// save changes
+	err = logFile.Sync()
+	if err != nil {
+		fmt.Println(err.Error())
+		return //same as above
+	}
+}
+
+func readFile() {
+	// re-open file
+	var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+	checkError(err)
+	defer file.Close()
+
+	// read file
+	var text = make([]byte, 1024)
+	n, err := file.Read(text)
+	if n > 0 {
+		fmt.Println(string(text))
+	}
+	//if there is an error while reading
+	//just print however much was read if any
+	//at return file will be closed
+}
+
+func deleteFile() {
+	// delete file
+	var err = os.Remove(path)
+	checkError(err)
+}
+
+func checkError(err error) {
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(0)
+	}
+}
+
+func getHomeDirectory() {
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(usr.HomeDir)
 }
