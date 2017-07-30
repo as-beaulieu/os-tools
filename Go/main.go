@@ -35,7 +35,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
 	"log"
@@ -107,34 +106,6 @@ func main() {
 
 }
 
-//fileScanner is a scanner that scans the file, moving each line to a slice
-func fileScanner(pathName string) []string {
-	var fileScan []string
-	if file, err := os.Open(pathName); err == nil {
-
-		// make sure it gets closed
-		defer file.Close()
-
-		// create a new scanner and read the file line by line
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			//log.Println(scanner.Text())
-			fileScan = append(fileScan, scanner.Text())
-		}
-
-		// check for errors
-		if err = scanner.Err(); err != nil {
-			log.Fatal(err)
-		}
-
-	} else {
-		log.Fatal(err)
-	}
-
-	return fileScan
-
-}
-
 func printCommand(cmd *exec.Cmd) {
 	fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))
 }
@@ -167,61 +138,6 @@ func parsePing(outs []byte, ping *Ping) {
 	  }*/
 }
 
-func writeToNewFile(outs []byte) string {
-	layout := "20060102_1504"
-	//If you want to create tmp/test directories at the root, use /tmp/test
-	err := os.MkdirAll("tmp/test", 0755)
-	if err != nil {
-		fmt.Println("Error making folder:", err)
-		return ""
-	}
-
-	newPath := "tmp/test/" + time.Now().Format(layout) + ".log"
-	logFile, err := os.Create(newPath)
-	if err != nil {
-		fmt.Println("Cannot create logfile:", err)
-		return ""
-	}
-
-	_, err = logFile.Write(outs)
-	if err != nil {
-		fmt.Println("Cannot write to logfile: ", err)
-	}
-
-	// save changes
-	err = logFile.Sync()
-	if err != nil {
-		fmt.Println(err.Error())
-		return "" //same as above
-	}
-
-	return newPath
-
-}
-
-func readFile() {
-	// re-open file
-	var file, err = os.OpenFile(path, os.O_RDWR, 0644)
-	checkError(err)
-	defer file.Close()
-
-	// read file
-	var text = make([]byte, 1024)
-	n, err := file.Read(text)
-	if n > 0 {
-		fmt.Println(string(text))
-	}
-	//if there is an error while reading
-	//just print however much was read if any
-	//at return file will be closed
-}
-
-func deleteFile() {
-	// delete file
-	var err = os.Remove(path)
-	checkError(err)
-}
-
 func checkError(err error) {
 	if err != nil {
 		fmt.Println(err.Error())
@@ -235,23 +151,6 @@ func getHomeDirectory() {
 		log.Fatal(err)
 	}
 	fmt.Println(usr.HomeDir)
-}
-
-//readLines() reads the file, and is used to return the file as one large string
-//Inefficient for large files. Better to use a scanner to organize line by line
-func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
 }
 
 //Returns the directory path the main.go file runs from
