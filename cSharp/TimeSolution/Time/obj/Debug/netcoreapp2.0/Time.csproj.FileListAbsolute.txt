@@ -1,0 +1,11 @@
+c:\users\beaulian\source\repos\TimeSolution\Time\bin\Debug\netcoreapp2.0\Time.deps.json
+c:\users\beaulian\source\repos\TimeSolution\Time\bin\Debug\netcoreapp2.0\Time.runtimeconfig.json
+c:\users\beaulian\source\repos\TimeSolution\Time\bin\Debug\netcoreapp2.0\Time.runtimeconfig.dev.json
+c:\users\beaulian\source\repos\TimeSolution\Time\bin\Debug\netcoreapp2.0\Time.dll
+c:\users\beaulian\source\repos\TimeSolution\Time\bin\Debug\netcoreapp2.0\Time.pdb
+c:\users\beaulian\source\repos\TimeSolution\Time\obj\Debug\netcoreapp2.0\Time.csprojResolveAssemblyReference.cache
+c:\users\beaulian\source\repos\TimeSolution\Time\obj\Debug\netcoreapp2.0\Time.csproj.CoreCompileInputs.cache
+c:\users\beaulian\source\repos\TimeSolution\Time\obj\Debug\netcoreapp2.0\Time.AssemblyInfoInputs.cache
+c:\users\beaulian\source\repos\TimeSolution\Time\obj\Debug\netcoreapp2.0\Time.AssemblyInfo.cs
+c:\users\beaulian\source\repos\TimeSolution\Time\obj\Debug\netcoreapp2.0\Time.dll
+c:\users\beaulian\source\repos\TimeSolution\Time\obj\Debug\netcoreapp2.0\Time.pdb
